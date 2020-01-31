@@ -24,13 +24,24 @@ class TodayViewModel(private val database: FavoriteDBDao, application: Applicati
     private val favoritesMap = favorites.value?.map { it.movieID to it }?.toMap()
 
     init {
-        nowPlayingList?.let { _nowPlayingMovies.value = getListFromAPIData(it) }
-            ?: getNowPlayingMovies()
-        upcomingList?.let { _upcomingMovies.value = getListFromAPIData(it) }
-            ?: getUpcomingMovies()
-        trendMovieList?.let { _trendMovies.value = getListFromAPIData(it) }
-            ?: getTrendMovies()
+        try {
+            nowPlayingList?.let { _nowPlayingMovies.value = getListFromAPIData(it) }
+                ?: getNowPlayingMovies()
+            upcomingList?.let { _upcomingMovies.value = getListFromAPIData(it) }
+                ?: getUpcomingMovies()
+            trendMovieList?.let { _trendMovies.value = getListFromAPIData(it) }
+                ?: getTrendMovies()
+        } catch (e: Exception) {
+            // Reload
+            getNowPlayingMovies()
+            getUpcomingMovies()
+            getTrendMovies()
+        }
     }
+
+    private val _navigateToDetail = MutableLiveData<String>()
+    val navigateToDetail: LiveData<String>
+        get() = _navigateToDetail
 
     private val _movieDetail = MutableLiveData<MovieDetail>()
     val movieDetail: LiveData<MovieDetail>
@@ -111,6 +122,14 @@ class TodayViewModel(private val database: FavoriteDBDao, application: Applicati
             )
         }
         return movieList
+    }
+
+    fun onMovieDetailClicked(url: String) {
+        _navigateToDetail.value = url
+    }
+
+    fun onMovieDetailNavigated() {
+        _navigateToDetail.value = null
     }
 
     override fun onCleared() {

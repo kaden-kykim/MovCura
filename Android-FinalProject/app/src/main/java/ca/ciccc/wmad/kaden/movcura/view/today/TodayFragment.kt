@@ -8,9 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import ca.ciccc.wmad.kaden.movcura.R
 import ca.ciccc.wmad.kaden.movcura.database.favorite.FavoriteDB
 import ca.ciccc.wmad.kaden.movcura.databinding.FragmentTodayBinding
+import ca.ciccc.wmad.kaden.movcura.global.TMDbConfiguration
 
 class TodayFragment : Fragment() {
 
@@ -38,7 +40,7 @@ class TodayFragment : Fragment() {
             },
             TodayAdapter.OnClickListener {
                 it?.let {
-                    Toast.makeText(context, "Click on ${it.title}", Toast.LENGTH_SHORT).show()
+                    viewModel.onMovieDetailClicked("${TMDbConfiguration.baseDetailUrl}${it.id}")
                     nowPlayingAdapter.initPosterCover()
                 }
                 it?:let {
@@ -53,7 +55,7 @@ class TodayFragment : Fragment() {
             },
             TodayAdapter.OnClickListener {
                 it?.let {
-                    Toast.makeText(context, "Click on ${it.title}", Toast.LENGTH_SHORT).show()
+                    viewModel.onMovieDetailClicked("${TMDbConfiguration.baseDetailUrl}${it.id}")
                     upcomingAdapter.initPosterCover()
                 }
                 it?:let {
@@ -67,7 +69,7 @@ class TodayFragment : Fragment() {
             },
             TodayAdapter.OnClickListener {
                 it?.let {
-                    Toast.makeText(context, "Click on ${it.title}", Toast.LENGTH_SHORT).show()
+                    viewModel.onMovieDetailClicked("${TMDbConfiguration.baseDetailUrl}${it.id}")
                     trendAdapter.initPosterCover()
                 }
                 it?:let {
@@ -90,6 +92,14 @@ class TodayFragment : Fragment() {
         viewModel.movieDetail.observe(this, Observer {
             it?.let {
                 binding.textViewMovieDetail.text = it.toString()
+            }
+        })
+
+        viewModel.navigateToDetail.observe(this, Observer {
+            it?.let {
+                this.findNavController().navigate(
+                    TodayFragmentDirections.actionTodayFragmentToDetailFragment(it))
+                viewModel.onMovieDetailNavigated()
             }
         })
 

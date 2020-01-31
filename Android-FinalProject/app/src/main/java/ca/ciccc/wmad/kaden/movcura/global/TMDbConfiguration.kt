@@ -5,11 +5,14 @@ import com.google.gson.annotations.SerializedName
 
 object TMDbConfiguration {
 
+    val baseDetailUrl = "https://www.themoviedb.org/movie/"
+
     var data: TMDbConfData? = null
         private set
 
     lateinit var baseImageUrl: String
         private set
+
 
     suspend fun setConfData(onResponse: ((Boolean) -> Unit)) {
         val getConfDataDeferred = TMDbAPI.retrofitService.getConfigurationAsync()

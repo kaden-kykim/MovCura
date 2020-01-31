@@ -27,6 +27,9 @@
             android:id="@+id/action_detailFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
             app:popUpTo="@+id/favoritesFragment" />
+        <argument
+            android:name="movieUrl"
+            app:argType="string" />
     </fragment>
 
     <fragment

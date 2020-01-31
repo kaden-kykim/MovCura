@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ca.ciccc.wmad.kaden.movcura.R
+import ca.ciccc.wmad.kaden.movcura.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : Fragment() {
 
@@ -18,13 +19,9 @@ class FavoritesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val binding = FragmentFavoritesBinding.inflate(inflater)
         return inflater.inflate(R.layout.fragment_favorites, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        // TODO: Use the ViewModel
-
     }
 
 }
