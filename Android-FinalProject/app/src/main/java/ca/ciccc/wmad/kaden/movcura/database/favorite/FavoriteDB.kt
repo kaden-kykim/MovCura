@@ -1,7 +1,6 @@
 package ca.ciccc.wmad.kaden.movcura.database.favorite
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Database(entities = [Favorite::class], version = 1, exportSchema = false)
@@ -45,10 +44,13 @@ interface FavoriteDBDao {
     fun delete(favorite: Favorite)
 
     @Query("SELECT * FROM favorite_movies_table ORDER BY _id DESC")
-    fun getAllFavoriteMoviesById(): LiveData<List<Favorite>>
+    fun getAllFavoriteMoviesById(): List<Favorite>
+
+    @Query("SELECT * FROM favorite_movies_table ORDER BY _id DESC LIMIT 1")
+    fun getLatestFavoriteMovie(): Favorite?
 
     @Query("SELECT * FROM favorite_movies_table ORDER BY movie_id")
-    fun getAllFavoriteMoviesByMovieId(): LiveData<List<Favorite>>
+    fun getAllFavoriteMoviesByMovieId(): List<Favorite>
 }
 
 @Entity(tableName = "favorite_movies_table")
@@ -64,14 +66,12 @@ data class Favorite(
 
     @ColumnInfo(name = "poster_path")
     val posterPath: String = ""
-) {
-    companion object {
-        val comparatorByIdDesc: Comparator<Favorite> = Comparator { f1, f2 ->
-            ((f2._id - f1._id).toInt())
-        }
+)
 
-        val comparatorByMovieId: Comparator<Favorite> = Comparator { f1, f2 ->
-            ((f1.movieID - f2.movieID).toInt())
-        }
-    }
+val comparatorByIdDesc: Comparator<Favorite> = Comparator { f1, f2 ->
+    ((f2._id - f1._id).toInt())
+}
+
+val comparatorByMovieId: Comparator<Favorite> = Comparator { f1, f2 ->
+    ((f1.movieID - f2.movieID).toInt())
 }

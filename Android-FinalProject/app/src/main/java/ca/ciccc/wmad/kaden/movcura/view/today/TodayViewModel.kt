@@ -1,7 +1,6 @@
 package ca.ciccc.wmad.kaden.movcura.view.today
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import ca.ciccc.wmad.kaden.movcura.data.SimpleMovieData
 import ca.ciccc.wmad.kaden.movcura.database.favorite.Favorite
@@ -22,8 +21,9 @@ class TodayViewModel(private val database: FavoriteDBDao, application: Applicati
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    private val favorites = database.getAllFavoriteMoviesByMovieId()
-    private val favoritesMap = favorites.value?.map { it.movieID to it }?.toMap()
+
+    private lateinit var favorites: List<Favorite>
+    private lateinit var favoritesMap: Map<Long, Favorite>
 
     init {
         getPopularMovies()
@@ -41,6 +41,13 @@ class TodayViewModel(private val database: FavoriteDBDao, application: Applicati
             getUpcomingMovies()
             getTrendMovies()
             getPopularMovies()
+        }
+
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                favorites = database.getAllFavoriteMoviesByMovieId()
+                favoritesMap = favorites.map { it.movieID to it }.toMap()
+            }
         }
     }
 
@@ -65,15 +72,12 @@ class TodayViewModel(private val database: FavoriteDBDao, application: Applicati
         get() = _trendMovies
 
     private fun getMovieDetail(movieID: Int) {
-        Log.i("Test", "Call getMovie Detail($movieID)")
         uiScope.launch {
             val getMovieDetailDeferred = TMDbAPI.retrofitService.getMovieDetailAsync(movieID)
             try {
                 val value = getMovieDetailDeferred.await()
-                Log.i("Test", value.toString())
                 _movieDetail.value = value
             } catch (e: Exception) {
-                Log.i("Test", "Error: ${e.message}")
                 _movieDetail.value = null
             }
         }
@@ -139,7 +143,7 @@ class TodayViewModel(private val database: FavoriteDBDao, application: Applicati
                     it.id.toInt(),
                     it.title,
                     it.posterPath,
-                    favoritesMap?.containsKey(it.id.toLong()) ?: false
+                    favoritesMap.containsKey(it.id.toLong())
                 )
             )
         }
@@ -167,7 +171,7 @@ class TodayViewModel(private val database: FavoriteDBDao, application: Applicati
 
     fun deleteFavorite(simpleMovieData: SimpleMovieData) {
         uiScope.launch {
-            favoritesMap?.get(simpleMovieData.id.toLong())?.let {
+            favoritesMap[simpleMovieData.id.toLong()]?.let {
                 delete(it)
             }
         }
