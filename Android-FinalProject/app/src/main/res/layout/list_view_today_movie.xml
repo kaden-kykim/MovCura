@@ -25,10 +25,10 @@
             app:srcCompat="@drawable/sample_poster" />
 
         <FrameLayout
-            android:id="@+id/list_view_movie_cover"
+            android:id="@+id/layout_list_view_movie_cover"
             android:layout_width="@dimen/movie_poster_item_width"
             android:layout_height="@dimen/movie_poster_item_height"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="match_parent"
