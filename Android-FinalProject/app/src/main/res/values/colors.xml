@@ -12,7 +12,7 @@
     <color name="colorPosterCoverGradEnd">#50000000</color>
     <color name="colorPosterCoverGradStart">#FF000000</color>
 
-    <color name="colorBackdropCoverGradCenter">#F52A2A2A</color>
+    <color name="colorBackdropCoverGradCenter">#E02A2A2A</color>
     <color name="colorBackdropCoverGradEnd">#002A2A2A</color>
     <color name="colorBackdropCoverGradStart">#FF2A2A2A</color>
 </resources>

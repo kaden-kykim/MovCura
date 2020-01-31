@@ -1,7 +1,9 @@
 package ca.ciccc.wmad.kaden.movcura.view.today
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -19,6 +21,7 @@ class TodayFragment : Fragment() {
     lateinit var upcomingAdapter: TodayAdapter
     lateinit var trendAdapter: TodayAdapter
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -101,6 +104,16 @@ class TodayFragment : Fragment() {
             getString(R.string.fragment_today_layout_upcoming_title)
         binding.layoutTodayTrendMovies.textViewTodayListTitle.text =
             getString(R.string.fragment_today_layout_trend_movie_title)
+
+        binding.layoutTodayPickContent.scrollViewPickOverview.setOnTouchListener { v: View, m: MotionEvent ->
+            binding.scrollViewTodayMain.requestDisallowInterceptTouchEvent(true)
+            false
+        }
+
+        binding.layoutTodayPickContent.layoutTodayPickMovieInform.setOnClickListener {
+            viewModel.onMovieDetailClicked(
+                "${TMDbConfiguration.baseDetailUrl}${binding.layoutTodayPickContent.movieDetail?.id}")
+        }
 
         viewModel.movieDetail.observe(this, Observer {
             it?.let {

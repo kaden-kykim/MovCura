@@ -26,19 +26,22 @@
             tools:text="@string/fragment_today_pick_title" />
 
         <FrameLayout
+            android:id="@+id/layout_today_pick_movie_inform"
             android:layout_width="match_parent"
-            android:layout_height="400dp">
+            android:layout_height="350dp">
 
             <ImageView
                 android:id="@+id/imageView_today_pick_backdrop"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
                 app:posterPathString="@{movieDetail.backdropPath}"
                 tools:srcCompat="@drawable/sample_backdrop2" />
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="100dp"
                 android:layout_gravity="bottom"
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/backdrop_cover_gradient" />
@@ -79,15 +82,23 @@
                     app:setTextString="@{movieDetail.releaseDate.substring(0, 4)}"
                     tools:text="2019\n" />
 
-                <TextView
-                    android:id="@+id/today_pick_overview"
+                <ScrollView
+                    android:id="@+id/scrollView_pick_overview"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textAppearance="@style/MoviePosterTitle"
-                    android:textSize="14sp"
-                    android:textStyle="normal"
-                    app:setTextString="@{movieDetail.overview}"
-                    tools:text="Elsa, Anna, Kristoff and Olaf headfar into the forest to learn the truth about an ancient mystery of their kingdom." />
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/today_pick_overview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/MoviePosterTitle"
+                        android:textSize="14sp"
+                        android:textStyle="normal"
+                        app:setTextString="@{movieDetail.overview}"
+                        tools:text="Elsa, Anna, Kristoff and Olaf headfar into the forest to learn the truth about an ancient mystery of their kingdom." />
+
+                </ScrollView>
+
 
             </LinearLayout>
 
