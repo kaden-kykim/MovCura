@@ -14,6 +14,11 @@ fun setMovieTitle(textView: TextView, movieTitle: String?) {
     movieTitle?.let { textView.text = it }
 }
 
+@BindingAdapter("setTextString")
+fun setTextString(textView: TextView, string: String?) {
+    string?.let { textView.text = it }
+}
+
 @BindingAdapter("posterPathString")
 fun setPosterPath(imageView: ImageView, posterPath: String?) {
     posterPath?.let {

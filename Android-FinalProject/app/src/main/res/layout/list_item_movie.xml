@@ -11,24 +11,23 @@
     </data>
 
     <FrameLayout
-        android:layout_width="@dimen/movie_poster_list_width"
-        android:layout_height="@dimen/movie_poster_list_height"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:padding="@dimen/movie_poster_list_margin">
 
         <ImageView
             android:id="@+id/list_view_movie_poster"
-            android:layout_width="@dimen/movie_poster_item_width"
-            android:layout_height="@dimen/movie_poster_item_height"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
             app:posterPathString="@{simpleMovieData.posterPath}"
-            app:srcCompat="@drawable/sample_poster" />
+            tools:srcCompat="@drawable/sample_poster" />
 
         <FrameLayout
             android:id="@+id/layout_list_view_movie_cover"
-            android:layout_width="@dimen/movie_poster_item_width"
-            android:layout_height="@dimen/movie_poster_item_height"
-            android:visibility="gone">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -37,7 +36,7 @@
 
             <TextView
                 android:id="@+id/textView_movie_title"
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/movie_poster_list_width"
                 android:layout_height="match_parent"
                 android:gravity="bottom"
                 android:padding="@dimen/movie_poster_list_margin"

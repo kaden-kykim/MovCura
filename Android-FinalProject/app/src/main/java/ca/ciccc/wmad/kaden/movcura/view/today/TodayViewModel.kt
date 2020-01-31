@@ -1,6 +1,7 @@
 package ca.ciccc.wmad.kaden.movcura.view.today
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import ca.ciccc.wmad.kaden.movcura.data.SimpleMovieData
 import ca.ciccc.wmad.kaden.movcura.database.favorite.Favorite
@@ -9,6 +10,7 @@ import ca.ciccc.wmad.kaden.movcura.network.MovieDetail
 import ca.ciccc.wmad.kaden.movcura.network.TMDbAPI
 import ca.ciccc.wmad.kaden.movcura.network.TodayMovies
 import kotlinx.coroutines.*
+import kotlin.random.Random
 
 private var nowPlayingList: TodayMovies? = null
 private var upcomingList: TodayMovies? = null
@@ -24,6 +26,8 @@ class TodayViewModel(private val database: FavoriteDBDao, application: Applicati
     private val favoritesMap = favorites.value?.map { it.movieID to it }?.toMap()
 
     init {
+        getPopularMovies()
+
         try {
             nowPlayingList?.let { _nowPlayingMovies.value = getListFromAPIData(it) }
                 ?: getNowPlayingMovies()
@@ -36,6 +40,7 @@ class TodayViewModel(private val database: FavoriteDBDao, application: Applicati
             getNowPlayingMovies()
             getUpcomingMovies()
             getTrendMovies()
+            getPopularMovies()
         }
     }
 
@@ -60,11 +65,15 @@ class TodayViewModel(private val database: FavoriteDBDao, application: Applicati
         get() = _trendMovies
 
     private fun getMovieDetail(movieID: Int) {
+        Log.i("Test", "Call getMovie Detail($movieID)")
         uiScope.launch {
             val getMovieDetailDeferred = TMDbAPI.retrofitService.getMovieDetailAsync(movieID)
             try {
-                _movieDetail.value = getMovieDetailDeferred.await()
+                val value = getMovieDetailDeferred.await()
+                Log.i("Test", value.toString())
+                _movieDetail.value = value
             } catch (e: Exception) {
+                Log.i("Test", "Error: ${e.message}")
                 _movieDetail.value = null
             }
         }
@@ -109,6 +118,19 @@ class TodayViewModel(private val database: FavoriteDBDao, application: Applicati
         }
     }
 
+    private fun getPopularMovies() {
+        uiScope.launch {
+            val getPopularMovie = TMDbAPI.retrofitService.getPopularMoviesAsync()
+            try {
+                val popular = getPopularMovie.await()
+                val popularMovies = popular.results
+                getMovieDetail(popularMovies[Random.nextInt(popularMovies.size)].id.toInt())
+            } catch (e: Exception) {
+                getMovieDetail(330457)
+            }
+        }
+    }
+
     private fun getListFromAPIData(movies: TodayMovies): MutableList<SimpleMovieData> {
         val movieList = mutableListOf<SimpleMovieData>()
         movies.results.forEach {
@@ -130,6 +152,25 @@ class TodayViewModel(private val database: FavoriteDBDao, application: Applicati
 
     fun onMovieDetailNavigated() {
         _navigateToDetail.value = null
+    }
+
+    fun insertFavorite(simpleMovieData: SimpleMovieData) {
+        val favorite = Favorite(
+            movieID = simpleMovieData.id.toLong(),
+            movieTitle = simpleMovieData.title,
+            posterPath = simpleMovieData.posterPath
+        )
+        uiScope.launch {
+            insert(favorite)
+        }
+    }
+
+    fun deleteFavorite(simpleMovieData: SimpleMovieData) {
+        uiScope.launch {
+            favoritesMap?.get(simpleMovieData.id.toLong())?.let {
+                delete(it)
+            }
+        }
     }
 
     override fun onCleared() {

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -36,14 +35,18 @@ class TodayFragment : Fragment() {
 
         nowPlayingAdapter = TodayAdapter(
             TodayAdapter.OnCheckedChangeListener { data, isChecked ->
-                Toast.makeText(context, "Toggle: $isChecked", Toast.LENGTH_SHORT).show()
+                if (isChecked) {
+                    viewModel.insertFavorite(data)
+                } else {
+                    viewModel.deleteFavorite(data)
+                }
             },
             TodayAdapter.OnClickListener {
                 it?.let {
                     viewModel.onMovieDetailClicked("${TMDbConfiguration.baseDetailUrl}${it.id}")
                     nowPlayingAdapter.initPosterCover()
                 }
-                it?:let {
+                it ?: let {
                     upcomingAdapter.initPosterCover()
                     trendAdapter.initPosterCover()
                 }
@@ -51,28 +54,36 @@ class TodayFragment : Fragment() {
             })
         upcomingAdapter = TodayAdapter(
             TodayAdapter.OnCheckedChangeListener { data, isChecked ->
-
+                if (isChecked) {
+                    viewModel.insertFavorite(data)
+                } else {
+                    viewModel.deleteFavorite(data)
+                }
             },
             TodayAdapter.OnClickListener {
                 it?.let {
                     viewModel.onMovieDetailClicked("${TMDbConfiguration.baseDetailUrl}${it.id}")
                     upcomingAdapter.initPosterCover()
                 }
-                it?:let {
+                it ?: let {
                     nowPlayingAdapter.initPosterCover()
                     trendAdapter.initPosterCover()
                 }
             })
         trendAdapter = TodayAdapter(
             TodayAdapter.OnCheckedChangeListener { data, isChecked ->
-
+                if (isChecked) {
+                    viewModel.insertFavorite(data)
+                } else {
+                    viewModel.deleteFavorite(data)
+                }
             },
             TodayAdapter.OnClickListener {
                 it?.let {
                     viewModel.onMovieDetailClicked("${TMDbConfiguration.baseDetailUrl}${it.id}")
                     trendAdapter.initPosterCover()
                 }
-                it?:let {
+                it ?: let {
                     nowPlayingAdapter.initPosterCover()
                     upcomingAdapter.initPosterCover()
                 }
@@ -82,23 +93,31 @@ class TodayFragment : Fragment() {
         binding.layoutTodayUpcoming.layoutTodayMovieList.adapter = upcomingAdapter
         binding.layoutTodayTrendMovies.layoutTodayMovieList.adapter = trendAdapter
 
-        binding.layoutTodayNowPlaying.layoutTodayListTitle.text =
+        binding.layoutTodayPickContent.textViewTodayPickTitle.text =
+            getString(R.string.fragment_today_pick_title)
+        binding.layoutTodayNowPlaying.textViewTodayListTitle.text =
             getString(R.string.fragment_today_layout_now_playing_title)
-        binding.layoutTodayUpcoming.layoutTodayListTitle.text =
+        binding.layoutTodayUpcoming.textViewTodayListTitle.text =
             getString(R.string.fragment_today_layout_upcoming_title)
-        binding.layoutTodayTrendMovies.layoutTodayListTitle.text =
+        binding.layoutTodayTrendMovies.textViewTodayListTitle.text =
             getString(R.string.fragment_today_layout_trend_movie_title)
 
         viewModel.movieDetail.observe(this, Observer {
             it?.let {
-                binding.textViewMovieDetail.text = it.toString()
+                binding.layoutTodayPickContent.movieDetail = it
+                binding.executePendingBindings()
+
+                binding.layoutTodayPickContent.todayPickReleaseYear.text = it.releaseDate.substring(0, 4)
+                binding.layoutTodayPickContent.textViewTodayPickMovieTitle.text = it.title
+
             }
         })
 
         viewModel.navigateToDetail.observe(this, Observer {
             it?.let {
                 this.findNavController().navigate(
-                    TodayFragmentDirections.actionTodayFragmentToDetailFragment(it))
+                    TodayFragmentDirections.actionTodayFragmentToDetailFragment(it)
+                )
                 viewModel.onMovieDetailNavigated()
             }
         })

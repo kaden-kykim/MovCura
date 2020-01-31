@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -11,7 +10,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/layout_today_list_title"
+            android:id="@+id/textView_today_list_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/today_movies_title_height"
             android:gravity="center_vertical"
@@ -27,15 +26,15 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/layout_today_movie_list"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/movie_poster_list_height"
                 android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="5"
-                tools:listitem="@layout/list_view_today_movie" />
+                tools:listitem="@layout/list_item_movie" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

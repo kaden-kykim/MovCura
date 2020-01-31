@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ca.ciccc.wmad.kaden.movcura.data.SimpleMovieData
-import ca.ciccc.wmad.kaden.movcura.databinding.ListViewTodayMovieBinding
-import kotlinx.android.synthetic.main.list_view_today_movie.view.*
+import ca.ciccc.wmad.kaden.movcura.databinding.ListItemMovieBinding
+import kotlinx.android.synthetic.main.list_item_movie.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -71,7 +71,7 @@ class TodayAdapter(
         }
     }
 
-    class SimpleMovieDataViewHolder private constructor(private var binding: ListViewTodayMovieBinding) :
+    class SimpleMovieDataViewHolder private constructor(private var binding: ListItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(simpleMovieData: SimpleMovieData) {
@@ -82,7 +82,7 @@ class TodayAdapter(
         companion object {
             fun from(parent: ViewGroup): SimpleMovieDataViewHolder {
                 return SimpleMovieDataViewHolder(
-                    ListViewTodayMovieBinding.inflate(LayoutInflater.from(parent.context))
+                    ListItemMovieBinding.inflate(LayoutInflater.from(parent.context))
                 )
             }
         }

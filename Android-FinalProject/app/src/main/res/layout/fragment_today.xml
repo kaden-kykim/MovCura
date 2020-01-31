@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -19,18 +18,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/textView_movie_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    tools:text="Hello world" />
-
-            </FrameLayout>
+            <include
+                android:id="@+id/layout_today_pick_content"
+                layout="@layout/layout_today_pick" />
 
             <include
                 android:id="@+id/layout_today_now_playing"
@@ -51,7 +41,6 @@
         </LinearLayout>
 
     </ScrollView>
-
 
 </layout>
 

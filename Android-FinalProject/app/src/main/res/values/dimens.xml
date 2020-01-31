@@ -18,10 +18,8 @@
 
     <!--    Movie Poster    -->
     <dimen name="movie_poster_list_margin">5dp</dimen>
-    <dimen name="movie_poster_list_height">225dp</dimen>
-    <dimen name="movie_poster_list_width">150dp</dimen>
-    <dimen name="movie_poster_item_height">215dp</dimen>
-    <dimen name="movie_poster_item_width">140dp</dimen>
+    <dimen name="movie_poster_list_height">200dp</dimen>
+    <dimen name="movie_poster_list_width">124dp</dimen>
     <!--    Favorite Star   -->
     <dimen name="favorite_star_click_area">40dp</dimen>
     <dimen name="favorite_star_image_area">20dp</dimen>

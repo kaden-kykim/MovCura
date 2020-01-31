@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="movieDetail"
+            type="ca.ciccc.wmad.kaden.movcura.network.MovieDetail" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/movie_poster_list_margin">
+
+        <TextView
+            android:id="@+id/textView_today_pick_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/today_movies_title_height"
+            android:gravity="center_vertical"
+            android:padding="@dimen/today_movies_margin"
+            android:textAppearance="@style/TodayMoviesTitle"
+            tools:text="@string/fragment_today_pick_title" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+            <ImageView
+                android:id="@+id/imageView_today_pick_backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:posterPathString="@{movieDetail.backdropPath}"
+                tools:srcCompat="@drawable/sample_backdrop2" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_gravity="bottom"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/backdrop_cover_gradient" />
+
+            <ImageView
+                android:id="@+id/imageView_pick_poster"
+                android:layout_width="130dp"
+                android:layout_height="200dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="15dp"
+                app:posterPathString="@{movieDetail.posterPath}"
+                tools:srcCompat="@drawable/sample_poster2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="200dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_today_pick_movie_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:paddingBottom="0dp"
+                    android:textAppearance="@style/MoviePosterTitle"
+                    android:textSize="20sp"
+                    app:setTextString="@{movieDetail.title}"
+                    tools:text="Frozen II\n" />
+
+                <TextView
+                    android:id="@+id/today_pick_release_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:textAppearance="@style/MoviePosterTitle"
+                    android:textSize="13sp"
+                    android:textStyle="normal"
+                    app:setTextString="@{movieDetail.releaseDate.substring(0, 4)}"
+                    tools:text="2019\n" />
+
+                <TextView
+                    android:id="@+id/today_pick_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="@style/MoviePosterTitle"
+                    android:textSize="14sp"
+                    android:textStyle="normal"
+                    app:setTextString="@{movieDetail.overview}"
+                    tools:text="Elsa, Anna, Kristoff and Olaf headfar into the forest to learn the truth about an ancient mystery of their kingdom." />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</layout>
