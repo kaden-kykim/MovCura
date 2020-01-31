@@ -8,5 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/colorBackground</item>
     </style>
-    
+
+    <style name="TodayMoviesTitle">
+        <item name="android:textColor">@color/colorDefaultText</item>
+        <item name="android:textSize">@dimen/today_movies_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MoviePosterTitle">
+        <item name="android:textColor">@color/colorDefaultText</item>
+        <item name="android:textSize">@dimen/movie_poster_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

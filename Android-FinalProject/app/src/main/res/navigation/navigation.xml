@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/todayFragment">
+
+    <fragment
+        android:id="@+id/todayFragment"
+        android:name="ca.ciccc.wmad.kaden.movcura.view.today.TodayFragment"
+        android:label="@string/fragment_today_label"
+        tools:layout="@layout/fragment_today">
+        <action
+            android:id="@+id/action_todayFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="ca.ciccc.wmad.kaden.movcura.view.detail.DetailFragment"
+        android:label="@string/fragment_detail_label"
+        tools:layout="@layout/fragment_detail">
+        <action
+            android:id="@+id/action_detailFragment_to_todayFragment"
+            app:destination="@id/todayFragment"
+            app:popUpTo="@+id/todayFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment"
+            app:popUpTo="@+id/favoritesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="ca.ciccc.wmad.kaden.movcura.view.favorites.FavoritesFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_favoritesFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+</navigation>

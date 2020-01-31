@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="simpleMovieData"
+            type="ca.ciccc.wmad.kaden.movcura.data.SimpleMovieData" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="@dimen/movie_poster_list_width"
+        android:layout_height="@dimen/movie_poster_list_height"
+        android:padding="@dimen/movie_poster_list_margin">
+
+        <ImageView
+            android:id="@+id/list_view_movie_poster"
+            android:layout_width="@dimen/movie_poster_item_width"
+            android:layout_height="@dimen/movie_poster_item_height"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:posterPathString="@{simpleMovieData.posterPath}"
+            app:srcCompat="@drawable/sample_poster" />
+
+        <FrameLayout
+            android:id="@+id/list_view_movie_cover"
+            android:layout_width="@dimen/movie_poster_item_width"
+            android:layout_height="@dimen/movie_poster_item_height"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/poster_cover_gradient" />
+
+            <TextView
+                android:id="@+id/textView_movie_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:padding="@dimen/movie_poster_list_margin"
+                android:textAppearance="@style/MoviePosterTitle"
+                app:movieTitleString="@{simpleMovieData.title}"
+                tools:text="Ford v Ferrari" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="@dimen/favorite_star_click_area"
+            android:layout_height="@dimen/favorite_star_click_area"
+            android:layout_marginTop="@dimen/movie_poster_list_margin"
+            android:padding="@dimen/movie_poster_list_margin">
+
+            <ToggleButton
+                android:id="@+id/toggleButton_favorite"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="@dimen/favorite_star_image_area"
+                android:layout_height="@dimen/favorite_star_image_area"
+                android:background="@drawable/toggle_favorite"
+                android:checked="@{simpleMovieData.favorite ? true : false}"
+                android:textOff=""
+                android:textOn="" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+</layout>

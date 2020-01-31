@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">MovCura</string>
+
+    <!--    Drawer Menu   -->
+    <string name="menu_today_cura">Today\'s Cura</string>
+    <string name="menu_favorites">Favorites</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <!--    Today Fragment    -->
+    <string name="fragment_today_label">Today\'s Cura</string>
+    <string name="fragment_today_layout_now_playing_title">"Now Playing"</string>
+    <string name="fragment_today_layout_upcoming_title">"Upcoming"</string>
+    <string name="fragment_today_layout_trend_movie_title">"Trend Movie"</string>
+
+    <!--    Detail Fragment    -->
+    <string name="fragment_detail_label">Movie Page</string>
+
 </resources>

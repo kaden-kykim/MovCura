@@ -5,4 +5,10 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorBackground">#2A2A2A</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorDefaultText">#EFEFEF</color>
+
+    <color name="colorTodayMoviePosterCover">#00000000</color>
+    <color name="colorPosterCoverGradCenter">#70000000</color>
+    <color name="colorPosterCoverGradEnd">#50000000</color>
+    <color name="colorPosterCoverGradStart">#FF000000</color>
 </resources>

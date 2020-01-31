@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="ca.ciccc.wmad.kaden.movcura.view.today.TodayViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView_movie_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    tools:text="Hello world" />
+
+            </FrameLayout>
+
+            <include
+                android:id="@+id/layout_today_now_playing"
+                layout="@layout/layout_today_movie_list" />
+
+            <include
+                android:id="@+id/layout_today_upcoming"
+                layout="@layout/layout_today_movie_list" />
+
+            <include
+                android:id="@+id/layout_today_trend_movies"
+                layout="@layout/layout_today_movie_list" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/today_movies_title_height" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</layout>
+

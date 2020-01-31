@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Intro Activity properties   -->
+    <dimen name="intro_logo_width">250dp</dimen>
+
+    <!--    Drawer Menu   -->
+    <dimen name="drawer_header_height">128dp</dimen>
+    <dimen name="drawer_header_padding">32dp</dimen>
+    <dimen name="drawer_footer_height">96dp</dimen>
+    <dimen name="drawer_footer_padding">24dp</dimen>
+
+    <!--    Today Movies    -->
+    <dimen name="today_movies_height">250dp</dimen>
+    <dimen name="today_movies_margin">5dp</dimen>
+    <dimen name="today_movies_title_height">40dp</dimen>
+    <dimen name="today_movies_title_text_size">20sp</dimen>
+    <dimen name="movie_poster_title_text_size">14sp</dimen>
+
+    <!--    Movie Poster    -->
+    <dimen name="movie_poster_list_margin">5dp</dimen>
+    <dimen name="movie_poster_list_height">225dp</dimen>
+    <dimen name="movie_poster_list_width">150dp</dimen>
+    <dimen name="movie_poster_item_height">215dp</dimen>
+    <dimen name="movie_poster_item_width">140dp</dimen>
+    <!--    Favorite Star   -->
+    <dimen name="favorite_star_click_area">40dp</dimen>
+    <dimen name="favorite_star_image_area">20dp</dimen>
+
+</resources>
